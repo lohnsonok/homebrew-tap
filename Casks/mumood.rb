@@ -1,9 +1,9 @@
 cask "mumood" do
-  version "1.0.9"
+  version "1.0.10"
   arch arm: "arm64", intel: "x86_64"
 
-  sha256 arm:   "53ab03c23634050cb03def439f5c332a90a3b970826984e8a6ffe105df32a271",
-         intel: "a64d7de3e7edfb22f05b562dbf9aa072bb3a9b88a0b6d9d7c2536fd253324896"
+  sha256 arm:   "5a63dcb648f563d17870c54b5029519142d2b25a63625ac370231017a68219fd",
+         intel: "8f4a68babb8317c0685239c63016ca5f9280c84c0b4d7bdae4a57dd25395422f"
 
   url "https://mumood.com/api/download?arch=#{arch}&tag=v#{version}",
       verified: "mumood.com"
