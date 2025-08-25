@@ -1,9 +1,9 @@
 cask "mumood" do
-  version "1.0.12"
+  version "1.0.7"
   arch arm: "arm64", intel: "x86_64"
 
-  sha256 arm:   "56a63805ad01ba4bf10c3a290c8e4ee8495e758ff0c1921c49c6a67b5cc52271",
-         intel: "1d42bbb79405c7f9b053c11bd6b2a15ff6d707d3b35629dc394b8fd15ff764bc"
+  sha256 arm:   "2b73144521284db26e2eb400582416ea86e45c16833ce60626dd4ce2fb169939",
+         intel: "e53d11cd396477f6fbe1b5280e2ccdffbd79495729282b7807105fb88c5fd963"
 
   url "https://mumood.com/api/download?arch=#{arch}&tag=v#{version}",
       verified: "mumood.com"
@@ -15,7 +15,7 @@ cask "mumood" do
     skip "Updates announced on https://mumood.com"
   end
 
-  depends_on macos: ">= :ventura"
+  depends_on macos: ">= :sonoma"
 
   app "MuMood.app"
 
