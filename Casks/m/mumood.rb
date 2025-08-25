@@ -12,7 +12,7 @@ cask "mumood" do
 
   livecheck do
     url "https://mumood.com/api/appcast"
-    strategy :sparkle
+    strategy :sparkle, &:short_version
   end
 
   auto_updates true
