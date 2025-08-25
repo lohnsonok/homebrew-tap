@@ -1,5 +1,5 @@
 cask "mumood" do
-  version "1.0.7"
+  version "1.0.13"
   arch arm: "arm64", intel: "x86_64"
 
   sha256 arm:   "2b73144521284db26e2eb400582416ea86e45c16833ce60626dd4ce2fb169939",
