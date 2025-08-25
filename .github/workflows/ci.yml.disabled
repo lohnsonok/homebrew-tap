@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - 'Casks/**'
+      - '.github/workflows/**'
+  pull_request:
+    paths:
+      - 'Casks/**'
+      - '.github/workflows/**'
+
+jobs:
+  style-audit-livecheck:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Homebrew (macOS)
+        run: |
+          echo "Using Homebrew: $(brew --version)"
+          brew update
+
+      - name: Run brew style
+        run: brew style --fix Casks || true
+
+      - name: Run brew audit
+        run: |
+          set -e
+          # Audit only changed casks when on PR; fallback to all under Casks on push
+          if [ -n "${{ github.event.pull_request.number || '' }}" ]; then
+            git fetch origin "pull/${{ github.event.pull_request.number }}/merge":PR_MERGE
+            CHANGED=$(git diff --name-only PR_MERGE | grep '^Casks/.*\\.rb$' || true)
+          else
+            CHANGED=$(git ls-files 'Casks/**/*.rb')
+          fi
+          if [ -z "$CHANGED" ]; then
+            echo "No cask changes detected"
+            exit 0
+          fi
+          for f in $CHANGED; do
+            echo "::group::Audit $f"
+            brew audit --cask --online --strict "$f"
+            echo "::endgroup::"
+          done
+
+      - name: Run brew livecheck
+        run: |
+          set -e
+          FILES=$(git ls-files 'Casks/**/*.rb')
+          for f in $FILES; do
+            echo "::group::Livecheck $f"
+            brew livecheck --cask "$f"
+            echo "::endgroup::"
+          done
