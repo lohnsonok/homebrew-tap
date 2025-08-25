@@ -11,12 +11,7 @@ cask "mumood" do
   homepage "https://mumood.com/"
 
   livecheck do
-    on_arm do
-      url "https://mumood.com/api/appcast?arch=arm64"
-    end
-    on_intel do
-      url "https://mumood.com/api/appcast?arch=x86_64"
-    end
+    url "https://mumood.com/api/appcast"
     strategy :sparkle
   end
 
